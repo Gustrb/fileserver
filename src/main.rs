@@ -19,7 +19,6 @@ fn parse_request(mut stream: &TcpStream) -> HashMap<String, String> {
                 }
             },
             None => {}
-
         }
     }
 
@@ -27,13 +26,10 @@ fn parse_request(mut stream: &TcpStream) -> HashMap<String, String> {
 }
 
 fn find_filename(get_request: &Option<&String>) -> String {
-    
     match get_request {
         Some(request) => {
-
             let splat_str = request.split_once(" ").unwrap();
-
-            splat_str.0.replace("/", "").to_string()
+            splat_str.0.replacen("/", "", 1).to_string()
         },
         None => {
             "Invalid method!".to_string()
